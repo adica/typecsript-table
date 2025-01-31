@@ -1,0 +1,13 @@
+.table-row {
+    height: 45px;
+    border-bottom: 1px solid var(--border-1);
+}
+
+.table-row:last-child {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    background-color: var(--bg-hover);
+    color: var(--white);
+}

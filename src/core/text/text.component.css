@@ -1,0 +1,26 @@
+.text {
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--content-1);
+}
+
+.text-trimmed {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100px; /* should come from jsx*/
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.content-1 {
+    color: var(--content-1);
+}
+
+.white {
+    color: var(--white);
+}
