@@ -16,11 +16,18 @@ function useIssues({issues}: { issues: Issue[] }) {
     );
 
     const filteredItems = React.useMemo(() => {
+        const activeFilterKeys = Object.keys(filters).filter(
+            (key) => filters[key as keyof Issue]?.trim() !== ''
+        ) as (keyof Issue)[];
+
         return issues.filter((item) => {
-            return Object.entries(filters).every(([field, filterValue]) => {
+            if (activeFilterKeys.length === 0) return true;
+
+            return activeFilterKeys.every((field) => {
+                const filterValue = filters[field];
                 if (!filterValue) return true;
-                const itemFieldValue = item[field as keyof Issue];
-                return String(itemFieldValue).toLowerCase().includes(filterValue.toLowerCase());
+                const itemFieldValue = String(item[field]).toLowerCase();
+                return itemFieldValue.includes(filterValue.toLowerCase());
             });
         });
     }, [issues, filters]);
@@ -41,13 +48,17 @@ function useIssues({issues}: { issues: Issue[] }) {
 
     // sort and filter items
     const sortedAndFilteredItems = React.useMemo(() => {
-        return filteredItems.sort((a, b) => {
-            if (sortOrder.direction === 'asc') {
-                return a[sortOrder.field] > b[sortOrder.field] ? 1 : -1;
+        return filteredItems.slice().sort((a, b) => {
+            const {field, direction} = sortOrder;
+            const aValue = a[field];
+            const bValue = b[field];
+            if (direction === 'asc') {
+                return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
             }
-            return a[sortOrder.field] < b[sortOrder.field] ? 1 : -1;
+            return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
         });
     }, [filteredItems, sortOrder]);
+
 
     return {
         sortOrder,
