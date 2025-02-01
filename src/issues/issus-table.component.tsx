@@ -1,61 +1,15 @@
-import {Table, TableRow, TableCell, TableHeadCell, SearchBox, HeadingText, BodyText} from "./core";
 import * as React from "react";
-
-interface Issue {
-    id: number;
-    issueType: string;
-    severity: string;
-    Component: string;
-    selector: string;
-    url: string;
-}
-
-interface SortingOrder {
-    field: keyof Issue;
-    direction: 'asc' | 'desc';
-}
-
-interface IssuesTableProps {
-    issues: Issue[];
-}
+import {Table, TableRow, TableCell, TableHeadCell, SearchBox, HeadingText, BodyText} from "../core";
+import {IssuesTableProps} from "./types.ts";
+import {useIssues} from "./use-issues.ts";
 
 const IssuesTable: React.FC<IssuesTableProps> = ({issues}) => {
-    // handle filtering
-    const [filteredItems, setFilteredItems] = React.useState<Issue[]>(issues);
-    const onFilterSelector = React.useCallback((event: React.ChangeEvent<HTMLInputElement>, field: keyof Issue) => {
-        const {value} = event.target;
-        setFilteredItems(issues.filter((issue) => {
-            const fieldValue = issue[field];
-            if (typeof fieldValue === 'string') {
-                return fieldValue.toLowerCase().includes(value.toLowerCase());
-            }
-            return false;
-        }));
-    }, [issues]);
-
-    // handle sorting
-    const [sortOrder, setSortOrder] = React.useState<SortingOrder>({
-        field: 'id',
-        direction: 'asc'
-    });
-    const onSort = React.useCallback((field: keyof Issue) => {
-        setSortOrder((prev) => {
-            if (prev.field === field) {
-                return {field, direction: prev.direction === 'asc' ? 'desc' : 'asc'};
-            }
-            return {field, direction: 'asc'};
-        });
-    }, []);
-
-    // sort and filter items
-    const sortedAndFilteredItems = React.useMemo(() => {
-        return filteredItems.sort((a, b) => {
-            if (sortOrder.direction === 'asc') {
-                return a[sortOrder.field] > b[sortOrder.field] ? 1 : -1;
-            }
-            return a[sortOrder.field] < b[sortOrder.field] ? 1 : -1;
-        });
-    }, [filteredItems, sortOrder]);
+    const {
+        sortOrder,
+        onSort,
+        onFilterSelector,
+        sortedAndFilteredItems
+    } = useIssues({issues});
 
     return (
         <Table

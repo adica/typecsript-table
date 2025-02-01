@@ -1,6 +1,6 @@
 import * as React from 'react';
 import issuesMockData from './../data/issues-mock-data.json';
-import {IssuesTable} from "./issus-table.component";
+import {IssuesTable} from "./issues/issus-table.component.tsx";
 
 const App: React.FC = React.memo(() =>
     (
