@@ -6,14 +6,24 @@
     --bg-3: #435060;
     --bg-hover: color-mix(in srgb, var(--content-1), white 60%);
     --border-1: var(--bg-2);
+}
 
-    background-color: var(--bg-1);
+[data-color-theme='dark'] {
+    --white: #fff;
+    --content-1: #e0e0e0;
+    --bg-1: #131516;
+    --bg-2: #2c2f33;
+    --bg-3: #23272a;
+    --bg-hover: color-mix(in srgb, var(--bg-1), white 60%);
+    --border-1: var(--bg-2);
 }
 
 body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
+    color: var(--content-1);
+    background-color: var(--bg-1);
 }
 
 table { border-collapse: collapse; }
