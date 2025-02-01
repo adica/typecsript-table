@@ -1,7 +1,8 @@
 import * as React from "react";
-import {Table, TableRow, TableCell, TableHeadCell, SearchBox, HeadingText, BodyText} from "../core";
+import {Table, TableRow, TableCell, BodyText} from "../core";
 import {IssuesTableProps} from "./types.ts";
 import {useIssues} from "./use-issues.ts";
+import {IssuesTableHeader} from './issue-table-header.component.tsx';
 
 const IssuesTable: React.FC<IssuesTableProps> = ({issues}) => {
     const {
@@ -17,58 +18,11 @@ const IssuesTable: React.FC<IssuesTableProps> = ({issues}) => {
             hasError={false}
             items={sortedAndFilteredItems}
             head={
-                <>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'id'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('id')}
-                    >
-                        <HeadingText>Num</HeadingText>
-                    </TableHeadCell>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'issueType'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('issueType')}
-                    >
-                        <HeadingText>Issue Type</HeadingText>
-                    </TableHeadCell>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'severity'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('severity')}
-                    >
-                        <HeadingText>Severity</HeadingText>
-                    </TableHeadCell>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'Component'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('Component')}
-                    >
-                        <HeadingText>Component</HeadingText>
-                    </TableHeadCell>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'selector'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('selector')}
-                    >
-                        <HeadingText>Selector</HeadingText>
-                        <SearchBox
-                            placeholder="Filter by selector"
-                            handleChange={(e) => onFilterSelector(e, 'selector')}
-                        />
-                    </TableHeadCell>
-                    <TableHeadCell
-                        isSortedBy={sortOrder.field === 'url'}
-                        sortedDirection={sortOrder.direction}
-                        onClick={() => onSort('url')}
-                    >
-                        <HeadingText>URL</HeadingText>
-                        <SearchBox
-                            placeholder="Filter by URL"
-                            handleChange={(e) => onFilterSelector(e, 'url')}
-                        />
-                    </TableHeadCell>
-                </>
+                <IssuesTableHeader
+                    sortOrder={sortOrder}
+                    onSort={onSort}
+                    onFilterSelector={onFilterSelector}
+                />
             }
             rowRenderer={({row}) => (
                 <TableRow key={row.id}>
