@@ -1,4 +1,5 @@
 import * as React from "react";
+import classNames from "classnames";
 import './table-head-cell.component.css';
 
 interface TableHeadCellProps {
@@ -11,7 +12,7 @@ interface TableHeadCellProps {
 const TableHeadCell: React.FC<TableHeadCellProps> =
     React.memo(
         ({children, onClick, isSortedBy = false, sortedDirection = 'asc'}) => (
-            <th className={`table-head-cell ${isSortedBy ? 'table-head-cell-sorted' : ''}`}>
+            <th className={classNames('table-head-cell', {['table-head-cell-sorted']: isSortedBy})}>
                 <div className="table-head-cell-content">
                     <button
                         type="button"

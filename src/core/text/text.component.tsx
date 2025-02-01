@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from "classnames";
 import {COLORS} from './const';
 import './text.component.css';
 
@@ -16,7 +17,11 @@ const Text: React.FC<TextProps> = React.memo(
          isTrimmed = false,
          color = COLORS.CONTENT_1
      }) => (
-        <span className={`text ${isUnderline ? 'text-underline' : ''} ${color} ${isTrimmed ? 'text-trimmed' : ''}`}>
+        <span
+            className={classNames('text', color, {
+                ['text-underline']: isUnderline,
+                ['text-trimmed']: isTrimmed
+            })}>
             {children}
         </span>
     )
