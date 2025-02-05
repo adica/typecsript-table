@@ -1,9 +1,9 @@
-.table-head-cell {
+.cell {
     border-left: 1px solid var(--white);
     padding: 0 10px;
 }
 
-.table-head-cell-content {
+.cell-content {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,20 +11,20 @@
     cursor: pointer;
 }
 
-.table-head-cell-sorted {
+.cell-sorted {
   background-color: var(--bg-3);
 }
 
-.table-head-cell-sort-icon {
-    margin-left: 5px;
-}
-
-.table-head-cell-sort-button {
+.cell-button {
     display: flex;
     align-items: center;
     gap: 8px;
     width: 100%;
     border: none;
     background: none;
+}
+
+.cell-sort-icon {
+    margin-left: 5px;
 }
 

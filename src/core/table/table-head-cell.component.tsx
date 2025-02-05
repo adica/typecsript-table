@@ -1,6 +1,6 @@
 import * as React from "react";
 import classNames from "classnames";
-import './table-head-cell.component.css';
+import styles from './table-head-cell.component.module.css';
 
 interface TableHeadCellProps {
     children: React.ReactNode;
@@ -11,23 +11,28 @@ interface TableHeadCellProps {
 
 const TableHeadCell: React.FC<TableHeadCellProps> =
     React.memo(
-        ({children, onClick, isSortedBy = false, sortedDirection = 'asc'}) => (
-            <th className={classNames('table-head-cell', {['table-head-cell-sorted']: isSortedBy})}>
-                <div className="table-head-cell-content">
-                    <button
-                        type="button"
-                        className="table-head-cell-sort-button"
-                        onClick={(event) => onClick(event, 'fieldName')}
-                    >
-                        {children}
-                        <span
-                            className="table-head-cell-sort-icon">
+        ({children, onClick, isSortedBy = false, sortedDirection = 'asc'}) => {
+            return (
+                <th className={classNames(styles.cell, {
+                    [styles["cell-sorted"]]: isSortedBy
+                })}>
+                    <div className={styles.cellContent}>
+                        <button
+                            type="button"
+                            //className={styles.cellButton}
+                            className={styles["cell-button"]}
+                            onClick={(event) => onClick(event, 'fieldName')}
+                        >
+                            {children}
+                            <span
+                                className={styles.cellSortIcon}>
                             {isSortedBy ? `${sortedDirection === 'asc' ? '▼' : '▲'}` : ''}
                         </span>
-                    </button>
-                </div>
-            </th>
-        )
+                        </button>
+                    </div>
+                </th>
+            )
+        }
     );
 
 export {TableHeadCell};
